@@ -1,7 +1,10 @@
 # LPA2 Taller1: Pruebas Unitarias Tienda de Muebles
 
-![commits](https://badgen.net/github/commits/UR-CC/lpa2-taller1?icon=github) 
-![last_commit](https://img.shields.io/github/last-commit/UR-CC/lpa2-taller1)
+## Información del Estudiante
+
+- **Nombre:** Jhon Salcedo
+- **Usuario GitHub:** jasl89
+- **Correo:** salcedo.lenis@gmail.com
 
 ## Objetivos
 
@@ -12,9 +15,12 @@
 - Diseñar pruebas para **clases abstractas y herencia**
 - Crear pruebas para **composición y herencia múltiple**
 - Implementar **pruebas de integración** básicas
+- Configurar validación de código con `ruff`
+- Implementar pre-commit hooks para garantizar calidad
 
 ## Prerrequisitos
 
+- Python 3.8 o superior
 - Conocimientos de OOP con Python
 - Familiaridad con los conceptos de abstracción, herencia, polimorfismo
 
@@ -53,33 +59,37 @@ lpa2-taller1/
 
 ## Configuración del Entorno
 
-### Preparación del Proyecto
+### Instalación y Configuración Inicial
 
-- Crear un **fork** del repo `https://github.com/UR-CC/lpa2-taller1` en la cuenta GitHub del estudiante.
+1. **Crear entorno virtual:**
 
-- Abrir una terminal de comandos.
+```bash
+python -m venv venv
+source venv/bin/activate  # En Linux/Mac
+# venv\Scripts\activate   # En Windows
+```
 
-- Crear un directorio para los **proyectos**:
+2. **Instalar dependencias:**
 
-    ```bash
-    mkdir proyectos
-    cd proyectos
-    ```
+```bash
+pip install -r requirements.txt
+```
 
-- Clonar el repo del estudiante:
+3. **Configurar pre-commit hooks:**
 
-    ```bash
-    git clone https://github.com/usuario/lpa2-taller1.git
-    cd lpa2-taller1
-    ```
+```bash
+pre-commit install
+```
 
-- Crear entorno virtual - en Ubuntu utiliza `python3`:
+### Dependencias del Proyecto
 
-    ```bash
-    python -m venv venv
-    source venv/bin/activate # Mac/Linux/WSL
-    pip install -r requirements.txt
-    ```
+El archivo `requirements.txt` incluye:
+
+- `pytest` - Framework de pruebas unitarias
+- `pytest-cov` - Plugin para medición de cobertura
+- `pre-commit` - Gestión de hooks de pre-commit
+- `ruff` - Linter y formateador de código Python
+- `rich` - Librería para salida de consola mejorada
 
 ### Configurar Pytest
 
@@ -316,29 +326,59 @@ class TestTienda:
 
 ### Comandos Básicos
 
-- Configurar la variable de entorno `PYTHONPATH`:
+1. **Ejecutar todas las pruebas:**
 
-    ```bash
-    export PYTHONPATH=.
-    ```
+```bash
+pytest -v
+```
 
-- Ejecutar todas las pruebas, `-v` en modo *verbose*:
+2. **Ejecutar pruebas con cobertura:**
 
-    ```bash
-    pytest -v
-    ```
+```bash
+pytest --cov=src --cov-report=term-missing
+```
 
-- Ejecutar pruebas con cobertura detallada
+3. **Generar reporte HTML de cobertura:**
 
-    ```bash
-    pytest --cov=src --cov-report=html
-    ```
+```bash
+pytest --cov=src --cov-report=html
+```
 
-- Ejecutar pruebas específicas
+El reporte HTML se genera en `htmlcov/index.html`
 
-    ```bash
-    pytest tests/unit/models/ -v
-    ```
+4. **Ejecutar pruebas específicas:**
+
+```bash
+# Ejecutar solo tests de un directorio
+pytest tests/unit/models/ -v
+
+# Ejecutar solo tests de un archivo
+pytest tests/unit/models/test_mueble.py -v
+
+# Ejecutar un test específico
+pytest tests/unit/models/test_mueble.py::TestMueblePropiedadNombre::test_getter_nombre -v
+```
+
+5. **Ejecutar pre-commit manualmente:**
+
+```bash
+pre-commit run --all-files
+```
+
+### Validación con Ruff
+
+Ruff se ejecuta automáticamente con pre-commit, pero también puedes ejecutarlo manualmente:
+
+```bash
+# Verificar código
+ruff check .
+
+# Corregir automáticamente
+ruff check --fix .
+
+# Formatear código
+ruff format .
+```
 
 - Ejecutar pruebas y mostrar cobertura en terminal
 
@@ -481,16 +521,81 @@ src/models/mueble.py       15      3    80%   22-24
 src/services/tienda.py     45     10    78%   15-18, 33-39
 ```
 
+## Requerimientos Técnicos
+
+### Cobertura de Código
+
+El proyecto está configurado para requerir una cobertura mínima del 80% (`fail_under = 80` en `.coveragerc`).
+
+Para verificar el cumplimiento:
+
+```bash
+pytest --cov=src --cov-report=term
+```
+
+Si la cobertura es menor al 80%, pytest fallará con un código de salida diferente de 0.
+
+### Pre-commit Hooks
+
+Los hooks de pre-commit ejecutan automáticamente antes de cada commit:
+
+1. **Ruff** - Verifica estilo de código y errores comunes
+2. **Pytest** - Ejecuta todas las pruebas
+
+Si alguna validación falla, el commit será rechazado.
+
+Para saltarse las validaciones (no recomendado):
+
+```bash
+git commit --no-verify -m "mensaje"
+```
+
+## Estructura de Tests Implementada
+
+### Tests Unitarios
+
+- `test_mueble.py` - Pruebas de la clase base abstracta
+- `test_almacenamiento.py` - Pruebas de categoría de almacenamiento
+- `test_asientos.py` - Pruebas de categoría de asientos
+- `test_superficies.py` - Pruebas de categoría de superficies
+- `test_armario.py` - Pruebas del mueble concreto armario
+- `test_cajonera.py` - Pruebas del mueble concreto cajonera
+- `test_cama.py` - Pruebas del mueble concreto cama
+- `test_comedor.py` - Pruebas del mueble concreto comedor
+- `test_escritorio.py` - Pruebas del mueble concreto escritorio
+- `test_mesa.py` - Pruebas del mueble concreto mesa
+- `test_silla.py` - Pruebas del mueble concreto silla
+- `test_sillon.py` - Pruebas del mueble concreto sillón
+- `test_sofa.py` - Pruebas del mueble concreto sofá
+- `test_sofacama.py` - Pruebas del mueble concreto sofá-cama (herencia múltiple)
+
+### Tests de Composición
+
+- `test_comedor.py` - Pruebas de la composición de comedor (mesa + sillas)
+
+### Fixtures Implementados
+
+El archivo `conftest.py` proporciona fixtures reutilizables:
+
+- `armario_basico`, `armario_premium`
+- `cajonera_pequena`
+- `silla_simple`, `silla_oficina`
+- `sillon_individual`
+- `sofa_tres_puestos`
+- `mesa_comedor`, `mesa_extensible`
+- `escritorio_basico`
+- `cama_individual`, `cama_king`
+- `sofacama_estandar`
+- `mock_mueble`
+- `datos_mueble_validos`, `datos_mueble_invalidos`
+
 ## Entregables
 
-El estudiante debe actualizar su repositorio personal con:
-
-1. **Estructura de pruebas completa** organizada por módulos
-2. **Cobertura mínima del 80%** en todos los módulos principales
-3. **Pruebas para casos edge** y condiciones de error
-4. **Fixtures y mocks** para pruebas aisladas
-5. **Reporte de cobertura** HTML generado
-6. **README actualizado** con instrucciones de ejecución
+1. **Todos los tests implementados** según la estructura especificada
+2. **Cobertura mínima del 80%** verificada
+3. **Pre-commit hooks configurados** y funcionando
+4. **README actualizado** con información del estudiante
+5. **Código validado con ruff** sin errores
 
 ## Recursos Adicionales
 
@@ -499,6 +604,8 @@ El estudiante debe actualizar su repositorio personal con:
 - [pytest Documentation](https://docs.pytest.org/)
 - [pytest-cov Coverage](https://pytest-cov.readthedocs.io/)
 - [unittest.mock](https://docs.python.org/3/library/unittest.mock.html)
+- [Ruff Documentation](https://docs.astral.sh/ruff/)
+- [Pre-commit](https://pre-commit.com/)
 
 ### Mejores Prácticas
 
