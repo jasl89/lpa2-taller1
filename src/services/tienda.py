@@ -3,7 +3,7 @@ Servicio de la tienda que maneja la lógica de negocio.
 Esta clase implementa el patrón de servicio para separar la lógica de negocio de la UI.
 """
 
-from typing import List, Dict, Optional, Union
+from typing import List, Dict
 
 # Corrección de imports para ejecución directa
 from models.mueble import Mueble

@@ -211,7 +211,7 @@ def crear_catalogo_inicial(tienda: "TiendaMuebles") -> None:
         resultado = tienda.agregar_mueble(mueble)
         print(f"  ✓ {resultado}")
 
-    print(f"✅ Catálogo inicial creado con éxito!")
+    print("✅ Catálogo inicial creado con éxito!")
 
 
 def crear_comedores_ejemplo(tienda: "TiendaMuebles") -> None:
