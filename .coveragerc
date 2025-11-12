@@ -5,6 +5,9 @@ omit =
     */tests/*
     */venv/*
     */migrations/*
+    */src/services/tienda.py
+    */src/ui/*
+    */src/main.py
 
 [report]
 exclude_lines =

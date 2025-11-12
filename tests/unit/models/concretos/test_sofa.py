@@ -3,7 +3,7 @@ Pruebas unitarias para la clase Sofa.
 
 Verifica:
 - Herencia de Asiento
-- Propiedades específicas (num_puestos, es_modular)
+- Propiedades específicas (capacidad_personas, es_modular)
 - Cálculo de precio
 """
 
@@ -28,9 +28,9 @@ class TestSofaInstanciacion:
 class TestSofaPropiedades:
     """Tests para las propiedades de Sofa."""
 
-    def test_num_puestos(self, sofa_tres_puestos):
-        """Verifica propiedad num_puestos."""
-        assert sofa_tres_puestos.num_puestos == 3
+    def test_capacidad_personas(self, sofa_tres_puestos):
+        """Verifica propiedad capacidad_personas."""
+        assert sofa_tres_puestos.capacidad_personas == 3
 
     def test_es_modular(self, sofa_tres_puestos):
         """Verifica propiedad es_modular."""
@@ -57,7 +57,7 @@ class TestSofaDescripcion:
 
 
 @pytest.mark.parametrize(
-    "num_puestos,es_modular",
+    "capacidad_personas,es_modular",
     [
         (2, False),
         (3, False),
@@ -65,7 +65,7 @@ class TestSofaDescripcion:
         (4, True),
     ],
 )
-def test_sofa_diferentes_configuraciones(num_puestos, es_modular):
+def test_sofa_diferentes_configuraciones(capacidad_personas, es_modular):
     """Test parametrizado para diferentes configuraciones."""
     sofa = Sofa(
         "Test",
@@ -73,8 +73,8 @@ def test_sofa_diferentes_configuraciones(num_puestos, es_modular):
         "Gris",
         600,
         material_tapizado="Tela",
-        num_puestos=num_puestos,
+        capacidad_personas=capacidad_personas,
         es_modular=es_modular,
     )
-    assert sofa.num_puestos == num_puestos
+    assert sofa.capacidad_personas == capacidad_personas
     assert sofa.es_modular == es_modular

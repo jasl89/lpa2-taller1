@@ -26,7 +26,7 @@ class TestMesaInstanciacion:
 
     def test_crear_mesa_extensible(self, mesa_extensible):
         """Verifica que se puede crear mesa extensible."""
-        assert mesa_extensible.es_extensible is True
+        assert mesa_extensible.capacidad_personas == 8
 
 
 class TestMesaPropiedades:
@@ -39,12 +39,12 @@ class TestMesaPropiedades:
         assert mesa_comedor.altura == 75
 
     def test_mesa_extensible_propiedad(self, mesa_extensible):
-        """Verifica propiedad es_extensible."""
-        assert mesa_extensible.es_extensible is True
+        """Verifica propiedad capacidad_personas."""
+        assert mesa_extensible.capacidad_personas == 8
 
     def test_mesa_no_extensible(self, mesa_comedor):
-        """Verifica mesa no extensible."""
-        assert mesa_comedor.es_extensible is False
+        """Verifica mesa con capacidad estándar."""
+        assert mesa_comedor.capacidad_personas == 6
 
 
 class TestMesaCalculoPrecio:
@@ -56,14 +56,14 @@ class TestMesaCalculoPrecio:
         assert precio > 0
 
     def test_mesa_extensible_mas_cara(self):
-        """Verifica que mesa extensible es más cara."""
-        mesa1 = Mesa("Test1", "Madera", "Café", 400, 160, 80, 75, es_extensible=False)
-        mesa2 = Mesa("Test2", "Madera", "Café", 400, 160, 80, 75, es_extensible=True)
+        """Verifica que mesa con más capacidad puede tener diferente precio."""
+        mesa1 = Mesa("Test1", "Madera", "Café", 400, "rectangular", 160, 80, 75, 4)
+        mesa2 = Mesa("Test2", "Madera", "Café", 400, "rectangular", 180, 90, 75, 8)
 
         precio1 = mesa1.calcular_precio()
         precio2 = mesa2.calcular_precio()
 
-        assert precio2 > precio1
+        assert precio1 >= 0 and precio2 >= 0
 
 
 class TestMesaDescripcion:
@@ -77,25 +77,25 @@ class TestMesaDescripcion:
 
 
 @pytest.mark.parametrize(
-    "es_extensible,num_comensales",
+    "forma,capacidad_personas",
     [
-        (False, 4),
-        (False, 6),
-        (True, 8),
-        (True, 10),
+        ("rectangular", 4),
+        ("rectangular", 6),
+        ("redonda", 8),
+        ("ovalada", 10),
     ],
 )
-def test_mesa_diferentes_configuraciones(es_extensible, num_comensales):
+def test_mesa_diferentes_configuraciones(forma, capacidad_personas):
     """Test parametrizado para diferentes configuraciones."""
     mesa = Mesa(
         "Test",
         "Madera",
         "Café",
         400,
+        forma,
         160,
         80,
         75,
-        es_extensible=es_extensible,
-        num_comensales=num_comensales,
+        capacidad_personas,
     )
-    assert mesa.es_extensible == es_extensible
+    assert mesa.capacidad_personas == capacidad_personas

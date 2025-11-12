@@ -100,8 +100,8 @@ class TestArmarioCalculoPrecio:
     def test_calcular_precio_premium_completo(self, armario_premium):
         """Verifica el cálculo de precio para armario premium."""
         precio = armario_premium.calcular_precio()
-        # 800 + (3*50) + (2*30) + 100 = 1060
-        assert precio == 1060
+        # 800 + (3*50) + (2*30) + 100 = 1110
+        assert precio == 1110
 
     def test_precio_es_entero(self, armario_basico):
         """Verifica que el precio retornado es un entero."""

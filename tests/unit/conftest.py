@@ -53,7 +53,7 @@ def cajonera_pequena():
         color="Blanco",
         precio_base=150,
         num_cajones=3,
-        profundidad=30,
+        tiene_ruedas=False,
     )
 
 
@@ -94,8 +94,10 @@ def sillon_individual():
         material="Madera",
         color="Beige",
         precio_base=300,
+        capacidad_personas=1,
+        tiene_respaldo=True,
         material_tapizado="Tela",
-        tiene_apoyabrazos=True,
+        tiene_brazos=True,
         es_reclinable=False,
     )
 
@@ -108,8 +110,10 @@ def sofa_tres_puestos():
         material="Madera",
         color="Gris",
         precio_base=600,
+        capacidad_personas=3,
+        tiene_respaldo=True,
         material_tapizado="Tela",
-        num_puestos=3,
+        tiene_brazos=True,
         es_modular=False,
     )
 
@@ -122,10 +126,11 @@ def mesa_comedor():
         material="Madera",
         color="Nogal",
         precio_base=400,
+        forma="rectangular",
         largo=180,
         ancho=90,
         altura=75,
-        es_extensible=False,
+        capacidad_personas=6,
     )
 
 
@@ -137,11 +142,11 @@ def mesa_extensible():
         material="Madera",
         color="Blanco",
         precio_base=500,
+        forma="rectangular",
         largo=160,
         ancho=80,
         altura=75,
-        es_extensible=True,
-        num_comensales=8,
+        capacidad_personas=8,
     )
 
 
@@ -153,11 +158,11 @@ def escritorio_basico():
         material="MDF",
         color="Blanco",
         precio_base=200,
-        largo=120,
-        ancho=60,
-        altura=75,
+        forma="rectangular",
+        tiene_cajones=True,
         num_cajones=2,
-        tiene_organizador_cables=True,
+        largo=1.2,
+        tiene_iluminacion=False,
     )
 
 
@@ -169,9 +174,9 @@ def cama_individual():
         material="Madera",
         color="Natural",
         precio_base=300,
-        tamano="Individual",
-        tiene_cajones=False,
+        tamaño="individual",
         incluye_colchon=False,
+        tiene_cabecera=False,
     )
 
 
@@ -183,9 +188,9 @@ def cama_king():
         material="Roble",
         color="Nogal",
         precio_base=800,
-        tamano="King",
-        tiene_cajones=True,
+        tamaño="king",
         incluye_colchon=True,
+        tiene_cabecera=True,
     )
 
 
@@ -197,9 +202,11 @@ def sofacama_estandar():
         material="Metal",
         color="Gris",
         precio_base=500,
+        capacidad_personas=2,
         material_tapizado="Tela",
-        num_puestos=2,
-        tamano_cama="Matrimonial",
+        tamaño_cama="matrimonial",
+        incluye_colchon=True,
+        mecanismo_conversion="plegable",
     )
 
 

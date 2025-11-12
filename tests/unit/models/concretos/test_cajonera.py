@@ -30,11 +30,11 @@ class TestCajoneraInstanciacion:
             color="Nogal",
             precio_base=300,
             num_cajones=5,
-            profundidad=40,
+            tiene_ruedas=True,
         )
         assert cajonera.nombre == "Cajonera Grande"
         assert cajonera.num_cajones == 5
-        assert cajonera.profundidad == 40
+        assert cajonera.tiene_ruedas is True
 
 
 class TestCajoneraPropiedades:
@@ -43,7 +43,7 @@ class TestCajoneraPropiedades:
     def test_acceso_propiedades(self, cajonera_pequena):
         """Verifica el acceso a propiedades."""
         assert cajonera_pequena.num_cajones == 3
-        assert cajonera_pequena.profundidad == 30
+        assert cajonera_pequena.tiene_ruedas is False
         assert cajonera_pequena.precio_base == 150
 
 
@@ -58,8 +58,12 @@ class TestCajoneraCalculoPrecio:
 
     def test_precio_aumenta_con_mas_cajones(self):
         """Verifica que más cajones aumentan el precio."""
-        caj1 = Cajonera("Test1", "Pino", "Blanco", 150, num_cajones=3, profundidad=30)
-        caj2 = Cajonera("Test2", "Pino", "Blanco", 150, num_cajones=6, profundidad=30)
+        caj1 = Cajonera(
+            "Test1", "Pino", "Blanco", 150, num_cajones=3, tiene_ruedas=False
+        )
+        caj2 = Cajonera(
+            "Test2", "Pino", "Blanco", 150, num_cajones=6, tiene_ruedas=False
+        )
 
         precio1 = caj1.calcular_precio()
         precio2 = caj2.calcular_precio()
@@ -78,15 +82,15 @@ class TestCajoneraDescripcion:
 
 
 @pytest.mark.parametrize(
-    "num_cajones,profundidad",
+    "num_cajones,tiene_ruedas",
     [
-        (2, 25),
-        (3, 30),
-        (5, 35),
-        (6, 40),
+        (2, False),
+        (3, False),
+        (5, True),
+        (6, True),
     ],
 )
-def test_cajonera_diferentes_configuraciones(num_cajones, profundidad):
+def test_cajonera_diferentes_configuraciones(num_cajones, tiene_ruedas):
     """Test parametrizado para diferentes configuraciones."""
     cajonera = Cajonera(
         nombre="Test",
@@ -94,9 +98,9 @@ def test_cajonera_diferentes_configuraciones(num_cajones, profundidad):
         color="Blanco",
         precio_base=150,
         num_cajones=num_cajones,
-        profundidad=profundidad,
+        tiene_ruedas=tiene_ruedas,
     )
     assert cajonera.num_cajones == num_cajones
-    assert cajonera.profundidad == profundidad
+    assert cajonera.tiene_ruedas == tiene_ruedas
     precio = cajonera.calcular_precio()
     assert precio > 0

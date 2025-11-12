@@ -29,13 +29,13 @@ class TestSofaCamaInstanciacion:
 class TestSofaCamaPropiedades:
     """Tests para las propiedades de SofaCama."""
 
-    def test_num_puestos(self, sofacama_estandar):
-        """Verifica propiedad num_puestos del sofá."""
-        assert sofacama_estandar.num_puestos == 2
+    def test_capacidad_personas(self, sofacama_estandar):
+        """Verifica propiedad capacidad_personas del sofá."""
+        assert sofacama_estandar.capacidad_personas == 2
 
-    def test_tamano_cama(self, sofacama_estandar):
-        """Verifica propiedad tamano_cama."""
-        assert sofacama_estandar.tamano_cama == "Matrimonial"
+    def test_tamaño_cama(self, sofacama_estandar):
+        """Verifica propiedad tamaño_cama."""
+        assert sofacama_estandar.tamaño_cama == "matrimonial"
 
 
 class TestSofaCamaCalculoPrecio:
@@ -51,7 +51,7 @@ class TestSofaCamaCalculoPrecio:
         from models.concretos.sofa import Sofa
 
         sofa = Sofa(
-            "Sofá", "Metal", "Gris", 500, material_tapizado="Tela", num_puestos=2
+            "Sofá", "Metal", "Gris", 500, material_tapizado="Tela", capacidad_personas=2
         )
         sofacama = SofaCama(
             "SofaCama",
@@ -59,8 +59,8 @@ class TestSofaCamaCalculoPrecio:
             "Gris",
             500,
             material_tapizado="Tela",
-            num_puestos=2,
-            tamano_cama="Matrimonial",
+            capacidad_personas=2,
+            tamaño_cama="matrimonial",
         )
 
         precio_sofa = sofa.calcular_precio()
@@ -80,15 +80,15 @@ class TestSofaCamaDescripcion:
 
 
 @pytest.mark.parametrize(
-    "num_puestos,tamano_cama",
+    "capacidad_personas,tamaño_cama",
     [
-        (2, "Individual"),
-        (2, "Matrimonial"),
-        (3, "Matrimonial"),
-        (3, "Queen"),
+        (2, "individual"),
+        (2, "matrimonial"),
+        (3, "matrimonial"),
+        (3, "queen"),
     ],
 )
-def test_sofacama_diferentes_configuraciones(num_puestos, tamano_cama):
+def test_sofacama_diferentes_configuraciones(capacidad_personas, tamaño_cama):
     """Test parametrizado para diferentes configuraciones."""
     sofacama = SofaCama(
         "Test",
@@ -96,8 +96,8 @@ def test_sofacama_diferentes_configuraciones(num_puestos, tamano_cama):
         "Gris",
         500,
         material_tapizado="Tela",
-        num_puestos=num_puestos,
-        tamano_cama=tamano_cama,
+        capacidad_personas=capacidad_personas,
+        tamaño_cama=tamaño_cama,
     )
-    assert sofacama.num_puestos == num_puestos
-    assert sofacama.tamano_cama == tamano_cama
+    assert sofacama.capacidad_personas == capacidad_personas
+    assert sofacama.tamaño_cama == tamaño_cama

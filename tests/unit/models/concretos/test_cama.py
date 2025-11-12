@@ -2,7 +2,7 @@
 Pruebas unitarias para la clase Cama.
 
 Verifica:
-- Propiedades específicas (tamano, tiene_cajones, incluye_colchon)
+- Propiedades específicas (tamano, tiene_cabecera, incluye_colchon)
 - Cálculo de precio según tamaño
 - Validaciones de tamaño
 """
@@ -18,12 +18,12 @@ class TestCamaInstanciacion:
         """Verifica que se puede crear una cama individual."""
         assert cama_individual is not None
         assert cama_individual.nombre == "Cama Individual"
-        assert cama_individual.tamano == "Individual"
+        assert cama_individual.tamaño == "individual"
 
     def test_crear_cama_king(self, cama_king):
         """Verifica que se puede crear una cama King."""
         assert cama_king is not None
-        assert cama_king.tamano == "King"
+        assert cama_king.tamaño == "king"
 
 
 class TestCamaPropiedades:
@@ -31,11 +31,11 @@ class TestCamaPropiedades:
 
     def test_tamano(self, cama_individual):
         """Verifica propiedad tamano."""
-        assert cama_individual.tamano == "Individual"
+        assert cama_individual.tamaño == "individual"
 
-    def test_tiene_cajones(self, cama_king):
-        """Verifica propiedad tiene_cajones."""
-        assert cama_king.tiene_cajones is True
+    def test_tiene_cabecera(self, cama_king):
+        """Verifica propiedad tiene_cabecera."""
+        assert cama_king.tiene_cabecera is True
 
     def test_incluye_colchon(self, cama_king):
         """Verifica propiedad incluye_colchon."""
@@ -57,8 +57,8 @@ class TestCamaCalculoPrecio:
 
     def test_cama_king_mas_cara_que_individual(self):
         """Verifica que cama King es más cara que individual."""
-        cama1 = Cama("Individual", "Madera", "Natural", 300, "Individual")
-        cama2 = Cama("King", "Madera", "Natural", 300, "King")
+        cama1 = Cama("individual", "Madera", "Natural", 300, "individual")
+        cama2 = Cama("king", "Madera", "Natural", 300, "king")
 
         precio1 = cama1.calcular_precio()
         precio2 = cama2.calcular_precio()
@@ -77,25 +77,25 @@ class TestCamaDescripcion:
 
 
 @pytest.mark.parametrize(
-    "tamano,tiene_cajones,incluye_colchon",
+    "tamano,tiene_cabecera,incluye_colchon",
     [
-        ("Individual", False, False),
-        ("Matrimonial", True, False),
-        ("Queen", True, True),
-        ("King", True, True),
+        ("individual", False, False),
+        ("matrimonial", True, False),
+        ("queen", True, True),
+        ("king", True, True),
     ],
 )
-def test_cama_diferentes_configuraciones(tamano, tiene_cajones, incluye_colchon):
+def test_cama_diferentes_configuraciones(tamano, tiene_cabecera, incluye_colchon):
     """Test parametrizado para diferentes configuraciones."""
     cama = Cama(
         f"Cama {tamano}",
         "Madera",
         "Natural",
         400,
-        tamano=tamano,
-        tiene_cajones=tiene_cajones,
+        tamaño=tamano,
+        tiene_cabecera=tiene_cabecera,
         incluye_colchon=incluye_colchon,
     )
-    assert cama.tamano == tamano
-    assert cama.tiene_cajones == tiene_cajones
+    assert cama.tamaño == tamano
+    assert cama.tiene_cabecera == tiene_cabecera
     assert cama.incluye_colchon == incluye_colchon
